@@ -1,0 +1,133 @@
+.landing {
+    background-color: #EEEBDD;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-header {
+        font-family: "Rowdies";
+        padding-right: 8%;
+        margin-bottom: 90px;
+
+        &-title {
+            font-size: 80px;
+            color: #630000;
+            margin-bottom: 0;
+        }
+
+        &-subtitle {
+            font-size: 40px;
+            color: #D8B6A4;
+            margin-top: 10px;
+        }
+    }
+
+    &-login {
+        font-family: "Harmattan";
+        background-color: white;
+        border-radius: 20px;
+        height: 350px;
+        width: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        box-shadow: 20px -30px #C8C8C8,
+                    40px -60px #A9A9A9;
+
+        &-img1 {
+            position: absolute;
+            top: 14.3%;
+            right: 16%;
+        }
+
+        &-img2 {
+            position: absolute;
+            top: 12%;
+            right: 42%;
+        }
+
+        &-email {
+            display: block;
+            border-radius: 10px;
+            border: 2px solid #D8B6A4;
+            height: 75px;
+            width: 525px;
+            margin-bottom: 20px;
+        }
+
+        &-password {
+            display: block;
+            border-radius: 10px;
+            border: 2px solid #D8B6A4;
+            height: 75px;
+            width: 525px;
+            margin-bottom: 25px;
+        }
+
+        &-buttons {
+            border: none;
+            display: flex;
+            font-size: 25px;
+            font-weight: bold;
+
+            &-login {
+                background-color: #D8B6A4;
+                height: 75px;
+                width: 350px;
+                margin-right: 30px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            &-signup {
+                background-color: #D8B6A4;
+                height: 75px;
+                width: 150px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.about {
+    height: 100vh;
+
+    &-box {
+        position: absolute;
+        height: 80vh;
+        background-color: #EEEBDD;
+        width: 40%;
+        left: 5%;
+    }
+
+    &-title {
+        font-family: "Rowdies";
+        position: absolute;
+
+        &-header {
+            margin: 0;
+            padding-top: 50px;
+            padding-left: 100%;
+            left: 8%;
+        }
+
+        &-text {
+            margin: 0;
+        }
+
+        &-subtitle {
+            margin: 0;
+        }
+    }
+}
