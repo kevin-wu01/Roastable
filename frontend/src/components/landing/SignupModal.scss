@@ -1,0 +1,56 @@
+.SignupModal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(225, 225, 225); /* Fallback color */
+    background-color: rgba(225, 225, 225, 0.6); /* Black w/ opacity */
+    // overflow: hidden;
+
+    &-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border-radius: 8px;
+        width: 450px; /* Could be more or less, depending on screen size */
+        height: 500px;
+        filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.20));
+    }
+
+    &-close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: -3px;
+        cursor: pointer;
+    }
+
+    &-title {
+        margin-top: 0;
+    }
+
+    &-break {
+        border: 1px solid #EEEBDD;
+        margin-top: 15px;
+    }
+
+    &-LastInput {
+        margin-bottom: 3px !important;
+    }
+
+    &-ErrorLabel {
+        color: #D8000C;
+    }
+
+    &-ErrorField {
+        border: 2px solid #D8000C !important;
+    }
+
+    &-label {
+        font-size: 12px;
+    }
+}

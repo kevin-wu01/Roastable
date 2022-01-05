@@ -41,11 +41,13 @@
         &-img1 {
             position: absolute;
             padding: 0 0 600px 420px;
+            visibility: hidden;
         }
 
         &-img2 {
             position: absolute;
             padding: 0 600px 650px 0;
+            visibility: hidden;
         }
 
         &-email {
@@ -53,8 +55,10 @@
             border-radius: 10px;
             border: 2px solid #D8B6A4;
             height: 60px;
-            width: 475px;
+            width: 435px;
             margin-bottom: 20px;
+            font-size: 15px;
+            padding: 0 20px;
         }
 
         &-password {
@@ -62,8 +66,17 @@
             border-radius: 10px;
             border: 2px solid #D8B6A4;
             height: 60px;
-            width: 475px;
-            margin-bottom: 25px;
+            width: 435px;
+            font-size: 15px;
+            padding: 0 20px;
+        }
+
+        &-errorField {
+            border: 2px solid #D8000C
+        }
+
+        &-error {
+            color: #D8000C;
         }
 
         &-buttons {
@@ -71,6 +84,7 @@
             display: flex;
             font-size: 25px;
             font-weight: bold;
+            margin-top: 25px;
 
             &-login {
                 background-color: #D8B6A4;
