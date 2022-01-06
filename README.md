@@ -9,6 +9,14 @@ This is a work-in-progress social media web application designed to help virtual
 - Direct message users you've connected with
 - Create a user profile that users you've connected with can see
 
+## Design Screenshots
+
+Landing Page
+![Landing Page](./screenshots/landing.png?raw=true "Landing")
+
+Dashboard
+![Dashboard](./screenshots/dashboard.png?raw=true "Dashboard")
+
 ## How to start this project
 
 cd into both the backend and frontend folders and run:
