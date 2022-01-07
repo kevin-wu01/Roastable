@@ -1,6 +1,6 @@
 # Meet Roastable!
 
-This is a work-in-progress social media web application designed to help virtually connect users that are in similar location.
+This is a work-in-progress social media web application designed to help connect users that are closeby.
 
 ## Planned features
 
