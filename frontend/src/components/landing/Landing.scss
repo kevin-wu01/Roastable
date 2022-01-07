@@ -7,19 +7,10 @@
     justify-content: center;
 
     &-header {
-        font-family: "Rowdies";
         padding-right: 8%;
         margin-bottom: 90px;
 
-        &-title {
-            font-size: 75px; // 80px
-            color: #630000;
-            margin-bottom: 0;
-        }
-
         &-subtitle {
-            font-size: 30px; // 40px
-            color: #D8B6A4;
             margin-top: 10px;
         }
     }
@@ -51,24 +42,7 @@
         }
 
         &-email {
-            display: block;
-            border-radius: 10px;
-            border: 2px solid #D8B6A4;
-            height: 60px;
-            width: 435px;
             margin-bottom: 20px;
-            font-size: 15px;
-            padding: 0 20px;
-        }
-
-        &-password {
-            display: block;
-            border-radius: 10px;
-            border: 2px solid #D8B6A4;
-            height: 60px;
-            width: 435px;
-            font-size: 15px;
-            padding: 0 20px;
         }
 
         &-errorField {
@@ -112,12 +86,15 @@
     }
 }
 
+#login {
+    display: block;
+}
+
 .about {
     height: 100vh;
     position: relative;
 
     &-box {
-        font-family: "Rowdies";
         height: 80vh;
         background-color: #EEEBDD;
         width: 42%;
@@ -126,7 +103,6 @@
     }
 
     &-title {
-        font-family: "Rowdies";
         position: absolute;
 
         &-header {
@@ -138,28 +114,29 @@
             display: flex;
         }
 
-        &-header1 {
+        &-header &-header1 {
             color: #000000;
             margin: 0; 
         }
 
-        &-header2 {
+        &-header &-header2 {
             color: #606060;
             margin: 0;
         }
 
-        &-header3 {
+        &-header &-header3 {
             color: #A0A0A0;
             margin: 0;
         }
 
-        &-text {
-            color: #630000;
-            margin: 0;
-            font-size: 4vw;
+        .about-box &-text {
             white-space: nowrap;
             margin-left: 10%;
             padding: 4% 0 4% 0;
+
+            @media (max-width: 425px) {
+                margin-left: 5%;
+            }
         }
 
         &-sub {
@@ -193,7 +170,6 @@
     }
 
     &-boxDesc {
-        font-family: "Rowdies";
         height: 65vh;
         background-color: #EEEBDD;
         right: 0;
@@ -207,7 +183,6 @@
     }
 
     &-desc {
-        font-family: "Harmattan";
         text-align: center;
         padding: 0 40px;
         margin: 0;

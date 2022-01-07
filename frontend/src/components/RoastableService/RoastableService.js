@@ -6,9 +6,10 @@ export function loginUser(credentials) {
     .catch(err => console.log(err));
 }
 
-export function createUser(credentials) {
-    return axios.post("http://localhost:4321/users", credentials)
-    .then()
+export function createUser(firstName, lastName, username, password) {
+    return axios.post("http://localhost:4321/users", {firstName, lastName, username, password})
+    .then(res => {return {status: res.status, message: res.data.message}})
+    .catch(err => console.log(err));
 }
 
 export function validateToken(token) {

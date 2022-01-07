@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createUser } from "../RoastableService/RoastableService";
 
 import './SignupModal.scss';
@@ -10,6 +10,7 @@ export default function SignupModal({ setShowModal }) {
     const [lastName, setLastName] = useState();
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [disableButton, setDisableButton] = useState(false);
 
     /*
     let fields;
@@ -20,12 +21,28 @@ export default function SignupModal({ setShowModal }) {
         label = document.getElementsByClassName("SignupModal-label")[0];
     })
     */
-
+    //
     const submitForm = () => {
         resetErrorFields();
         const errorFields = validateForm();
+        
         if (errorFields.length === 0) {
-            createUser(fristName, lastName, username, password)
+            setDisableButton(true);
+
+            createUser(firstName, lastName, username, password)
+            .then((res) => {
+                const label = document.getElementsByClassName("SignupModal-label")[0];
+                console.log(res);
+                if (res.status === 201) {
+                    label.classList.add("SignupModal-SuccessLabel");
+                    label.textContent = "User successfully created"
+                } else {
+                    label.classList.add("SignupModal-ErrorLabel");
+                    label.textContent = res.message;
+                }
+
+                setDisableButton(false);
+            });
         } else {
             highlightErrorFields(errorFields);
         }
@@ -37,6 +54,7 @@ export default function SignupModal({ setShowModal }) {
 
         if (label) {
             label.classList.remove("SignupModal-ErrorLabel");
+            label.classList.remove("SignupModal-SuccessLabel");
             label.textContent = "";
         }
 
@@ -86,7 +104,7 @@ export default function SignupModal({ setShowModal }) {
                     <Input className="SignupModal-LastInput" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
                     <label className="SignupModal-label"></label>
                 </form>
-                <Button onClick={submitForm}>Sign Up</Button>
+                <Button disable={disableButton} onClick={submitForm}>Sign Up</Button>
             </div>
         </div>
     );

@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
 
-class Dashboard extends Component {
-    constructor(props) {
-        super(props);
+import circleStripes from '../../Images/CircleStripes.png';
 
-        this.state = {
-            name: null,
-            
-        }
-    }
+import { H1, H2, H3, H4 } from '../styled/text';
+import "./Dashboard.scss";
 
-    componentDidMount() {
+export default function Dashboard() {
 
-    }
+    return(
+        <div className="Dashboard">
+            <img className="about-circle" src={circleStripes} alt="circle with stripes"/>
+            <div className="square"></div>
+            <div className="Dashboard-menu">
+                <div className="Dashboard-menu-sidebar">
 
-    render() {
-        return(
-            <h1>yay</h1>
-        );
-    }
+                </div>
+                <div className="Dashboard-menu-display">
+
+                </div>
+            </div>
+        </div>
+    );
+
 }
-
-export default Dashboard;

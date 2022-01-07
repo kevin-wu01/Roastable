@@ -18,15 +18,30 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const user = new User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
     });
-    console.log(user);
-    user.save()
-    .then(data => {
-        res.json(data);
+
+    User.find({username: req.body.username})
+    .then((existingUser) => {
+        if (existingUser.length !== 0) {
+            res.status(200).json({message: "Username already in use."});
+            return true;
+        } else {
+            return false;
+        }
     })
-    .catch(err => {
-        res.status(400);
+    .then((exists) => {
+        if (!exists) {
+            user.save()
+            .then(data => {
+                res.status(201).json(data);
+            })
+            .catch(err => {
+                res.status(400).json({message: "An error occurred."});;
+            })
+        }
     })
 });
 

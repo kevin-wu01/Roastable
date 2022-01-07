@@ -38,12 +38,16 @@
         margin-top: 15px;
     }
 
-    &-LastInput {
-        margin-bottom: 3px !important;
+    #modal &-LastInput {
+        margin-bottom: 3px;
     }
 
     &-ErrorLabel {
         color: #D8000C;
+    }
+
+    &-SuccessLabel {
+        color: #4BB543;
     }
 
     &-ErrorField {
@@ -52,5 +56,15 @@
 
     &-label {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 425px) {
+    .SignupModal {
+        &-content {
+            width: 300px;
+            height: 380px;
+            margin: 45% auto;
+        }
     }
 }

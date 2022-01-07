@@ -1,7 +1,7 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
-import SignupModal from './SignupModal';
+import SignupModal from '../SignupModal/SignupModal';
 
 import fireBox from '../../Images/FireTextBox11.png';
 import fireBox2 from '../../Images/FireTextBox22.png';
@@ -10,6 +10,8 @@ import circleStripes from '../../Images/CircleStripes.png';
 
 import { loginUser } from '../RoastableService/RoastableService';
 
+import { H1, H2, H3, H4 } from '../styled/text';
+import { InputLarge } from '../styled/common';
 import './Landing.scss';
 import './LandingMobile.scss';
 
@@ -76,16 +78,16 @@ export default function Landing({ setToken }) {
         <div>
             <section className="landing">
                 <div className="landing-header">
-                    <p className="landing-header-title">Roastable.</p>
-                    <p className="landing-header-subtitle">0% coffee. 100% heartwarming</p>
+                    <H1 className="landing-header-title">Roastable.</H1>
+                    <H2 className="landing-header-subtitle">0% coffee. 100% heartwarming</H2>
                 </div>
                 <div className="landing-login">
-                    <img className="landing-login-img1" src={fireBox} />
-                    <img className="landing-login-img2" src={fireBox2} />
+                    <img className="landing-login-img1" src={fireBox} alt="text box 1"/>
+                    <img className="landing-login-img2" src={fireBox2} alt="text box 2"/>
 
                     <form id="login">
-                        <input className="landing-login-email" type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />
-                        <input className="landing-login-password" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+                        <InputLarge className="landing-login-email" type="text" placeholder="Username" onChange={e => setUsername(e.target.value)} />
+                        <InputLarge className="landing-login-password" type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
                         <label className="landing-login-error"></label>
                     </form>
                     <div className="landing-login-buttons">
@@ -97,32 +99,32 @@ export default function Landing({ setToken }) {
             <section className="about">
             <div className="about-box">
                 <div className="about-title-header">
-                    <p className="about-title-header1">welcome! &nbsp; &nbsp; &nbsp;</p>
-                    <p className="about-title-header2">welcome! &nbsp; &nbsp; &nbsp;</p>
-                    <p className="about-title-header3">welcome!</p>
+                    <H2 className="about-title-header1">welcome! &nbsp; &nbsp; &nbsp;</H2>
+                    <H2 className="about-title-header2">welcome! &nbsp; &nbsp; &nbsp;</H2>
+                    <H2 className="about-title-header3">welcome!</H2>
                 </div>
-                <div className="about-title-text">
+                <H1 className="about-title-text">
                     share a cup of digital coffee
-                </div>
-                <div className="about-title-sub">
+                </H1>
+                <H2 className="about-title-sub">
                     this one's on us.
-                </div>
-                <img className="about-coffee" src={coffeeCup} /> 
+                </H2>
+                <img className="about-coffee" src={coffeeCup} alt="coffee cup" /> 
             </div>
             <span className="about-line"/>
             <div className="about-boxDesc">
-                <p className="about-desc">
+                <H4 className="about-desc">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tincidunt, augue in luctus ornare, libero neque imperdiet lectus, ut semper dui sem a nulla. Phasellus tempor nisl tempus porta congue.
-                </p>
+                </H4>
                 <p className="about-divider">〰</p>
-                <p className="about-desc">
+                <H4 className="about-desc">
                 Nam pretium, urna vel hendrerit sodales, magna velit rhoncus nulla, id porta diam orci sit amet ligula. Nam quam diam, venenatis sit amet erat et, scelerisque interdum tellus. Nulla sit amet rutrum lacus, sed convallis libero. Suspendisse scelerisque ullamcorper erat a venenatis.
-                </p>
+                </H4>
             </div>
-            <img className="about-circle" src={circleStripes} />
+            <img className="about-circle" src={circleStripes} alt="circle with stripes" />
             </section>
             {
-                showModal ? <SignupModal setShowModal={setShowModal}/>  : ''
+                showModal ? <SignupModal setShowModal={setShowModal}/> : ''
             }
         </div>
     );

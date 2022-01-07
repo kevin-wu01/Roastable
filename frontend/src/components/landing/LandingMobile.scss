@@ -54,6 +54,7 @@
                 font-size: 15px;
                 width: 100%;
                 justify-content: center;
+                margin-top: 6px;
 
                 &-login {
                     height: 100%;
@@ -68,7 +69,17 @@
                     border-radius: 6px;
                 }
             }
+
+            &-error {
+                font-size: 12px;
+            }
         }
+    }
+
+    #login {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .about {
@@ -87,8 +98,8 @@
                 margin-left: 5%
             }
 
-            &-text {
-                font-size: 5.8vw;
+            .about-box &-text {
+                font-size: 22px;
                 margin-left: 5%
             }
 
