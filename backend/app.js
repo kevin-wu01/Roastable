@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-let cors = require('cors')
+let cors = require('cors');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 require('dotenv/config');
 
 //middleware
@@ -30,4 +32,19 @@ mongoose.connect(process.env.DB_CONNECTION, () => {
     console.log("connected to db");
 })
 
+//Whenever someone connects this gets executed
+io.on('connection', function(socket) {
+    console.log('A user connected');
+ 
+    //Whenever someone disconnects this piece of code executed
+    socket.on('disconnect', function () {
+       console.log('A user disconnected');
+    });
+ });
+
 app.listen(4321);
+/*
+http.listen(4321, () => {
+    console.log("http listening");
+})
+*/

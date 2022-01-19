@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require('../models/User');
 
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
+require('../passport');
 
 // get all users
 router.get('/', (req, res) => {
@@ -46,10 +48,13 @@ router.post('/', (req, res) => {
 });
 
 // get specific user
-router.get('/:username', (req, res) => {
-    User.find({username: req.params.username})
-    .then((user) => {
-        res.json(user);
+router.get('/get', authenticateToken, (req, res) => {
+    console.log("authenticated");
+    User.find({username: res.locals.user.username})
+    .then((usersArray) => {
+        const { _id, password, ...userData } = usersArray[0].toObject();
+
+        res.json(userData);
     })
     .catch((err) => {
         res.json({message: err});
@@ -118,7 +123,7 @@ function authenticateToken(req, res, next) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
 
-        req.user = user;
+        res.locals.user = user;
         next();
     });
 }

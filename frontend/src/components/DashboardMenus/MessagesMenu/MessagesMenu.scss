@@ -1,0 +1,74 @@
+.MessagesMenu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__arrow {
+        top: 43%;
+        margin-left: 28px;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    &__box {
+        height: 100%;
+        width: 28px;
+        background-color: #ECECEC;
+        position: absolute;
+        margin-left: -14px;
+        cursor: pointer;
+    }
+
+    &-input {
+        background-color: white;
+        width: 100%;
+        height: 500px;
+        display: flex;
+    }
+
+    &-desc {
+        width: 100%;
+        height: 70px;
+        background-color: white;
+        border-top-right-radius: 20px;
+        display: flex;
+        align-items: center;
+
+        .MessagesMenu &__FirstName {
+            margin-left: 5%;
+        }
+
+        .MessagesMenu &__LastName {
+            margin-left: 8px;
+        }
+    }
+
+    &-TextBox {
+        flex: 1 1 auto;
+    }
+
+    &-input {
+        background-color: white;
+        width: 100%;
+        height: 60px;
+        display: flex;
+        border-bottom-right-radius: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-input &-input__msg {
+        height: 40px;
+        flex: 1;
+        max-width: 85%;
+    }
+
+    &-input &-input__msg:focus {
+        border: 2px solid #D8B6A4;
+    }
+}
+
+input[type=text]:focus {
+    border: 2px solid #D8B6A4;
+}

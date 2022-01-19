@@ -20,3 +20,11 @@ export function validateToken(token) {
         return validation.data.code === 1;
     })
 }
+
+export function getUserData(token) {
+    return axios.get("http://localhost:4321/users/get", { headers: {"Authorization" : `Bearer ${token}`} })
+    .then((userData) => {
+        return userData.data;
+    })
+    .catch(err => console.log(err));
+}

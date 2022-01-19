@@ -27,6 +27,7 @@ export const H3 = styled.h3`
     font-family: "Harmattan";
     font-size: 25px;
     color: #000000;
+    margin: 0;
 `
 
 export const H4 = styled.h4`
@@ -34,4 +35,5 @@ export const H4 = styled.h4`
     font-size: 16px;
     color: #000000;
     font-weight: normal;
+    margin: 0;
 `
