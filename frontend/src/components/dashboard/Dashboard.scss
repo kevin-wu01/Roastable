@@ -51,7 +51,7 @@
 
         &-sidebar {
             height: 100%;
-            width: 325px;
+            width: 300px;
             background-color: white;
             border-radius: 20px;
             z-index: 1;
@@ -69,8 +69,8 @@
             }
 
             &__picture {             
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
                 position: relative;
                 overflow: hidden;
                 border-radius: 50%;
@@ -85,7 +85,7 @@
 
             &__button {
                 border: 0;
-                width: 325px;
+                width: 300px;
                 background-color: white;
                 padding: 20px;
                 cursor: pointer;
@@ -103,6 +103,7 @@
 
             &__button &__title {
                 color: #BF886B;
+                margin: 12px 0;
             }
 
             &-display {

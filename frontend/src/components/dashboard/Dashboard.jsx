@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUserData } from '../RoastableService/RoastableService';
+import io from 'socket.io-client';
 
 import SidebarItem from '../SidebarItem/SidebarItem';
 import HomeMenu from '../DashboardMenus/HomeMenu/HomeMenu';
@@ -19,13 +20,14 @@ export default function Dashboard() {
     const [menuContent, setMenuContent] = useState(<HomeMenu/>);
     const [dropdown, setDropdown] = useState(false);
     const [userData, setUserData] = useState();
+    const [socket, setSocket] = useState(null);
 
     useEffect(() => {
         getUserData(localStorage.getItem('token'))
         .then((user) => {
             setUserData(user);
         });
-    }, [])
+    }, []);
 
     useEffect(() => {
         let buttonIdx;
@@ -47,7 +49,35 @@ export default function Dashboard() {
 
         selectMenuContent();
         updateButtonStyle(buttonIdx);
-    }, [selectedMenu])
+    }, [selectedMenu]);
+
+    useEffect(() => {
+        const newSocket = io.connect(`http://${window.location.hostname}:4321`, {
+            auth: {
+                token: localStorage.getItem('token')
+            }
+        });
+        setSocket(newSocket);
+        console.log(newSocket);
+        return () => newSocket.close();
+    }, [setSocket]);
+
+    useEffect(() => {
+        if (socket) {
+            socket.on('connect', () => {
+                console.log("connected to socket");
+            })
+
+            socket.on('message', message => {
+                console.log(message);
+            })
+
+            socket.on('error', message => {
+                console.warn("an error occurred");
+                socket.disconnect();
+            })
+        }
+    }, [socket]);
 
     const selectMenuContent = () => {
         switch(selectedMenu) {
@@ -55,7 +85,7 @@ export default function Dashboard() {
                 setMenuContent(<HomeMenu/>);
                 break;
             case "messages":
-                setMenuContent(<MessagesMenu/>);
+                setMenuContent(<MessagesMenu socket={socket}/>);
                 break;
             case "people":
                 setMenuContent(<div></div>);

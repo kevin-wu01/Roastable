@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+// import { authenticateToken } from '../utils/auth';
+const auth = require('../utils/auth');
 
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
-require('../passport');
+// const passport = require('../utils/passport');
 
 // get all users
 router.get('/', (req, res) => {
@@ -48,8 +49,8 @@ router.post('/', (req, res) => {
 });
 
 // get specific user
-router.get('/get', authenticateToken, (req, res) => {
-    console.log("authenticated");
+router.get('/get', auth.authenticateToken, (req, res) => {
+    console.log("GET " + res.locals.user.username);
     User.find({username: res.locals.user.username})
     .then((usersArray) => {
         const { _id, password, ...userData } = usersArray[0].toObject();
@@ -96,7 +97,7 @@ router.post('/login', (req, res) => {
                 res.send({message: "An error occurred"});
             } else {
                 const token = jwt.sign(user[0].toJSON(), process.env.ACCESS_TOKEN_SECRET);
-                console.log(token, "login token");
+                console.log("Authenticated " + req.body.username);
                 res.json({
                     token: token
                 })
@@ -109,10 +110,10 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.post('/validate', authenticateToken, (req, res) => {
+router.post('/validate', auth.authenticateToken, (req, res) => {
     res.send({code: 1});
 })
-
+/*
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     let token = authHeader && authHeader.split(' ')[1];
@@ -127,5 +128,5 @@ function authenticateToken(req, res, next) {
         next();
     });
 }
-
+*/
 module.exports = router;

@@ -1,10 +1,12 @@
 .MessagesTile {
     width: 85%;
-    height: 100px;
+    height: 80px;
     background-color: white;
     margin: 15px 7.5% 0;
     border-radius: 15px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     &__picture {
         width: 50px;
@@ -12,7 +14,6 @@
         position: relative;
         overflow: hidden;
         border-radius: 50%;
-        margin-top: 25px;
         margin-left: 20px;
         display: inline-block;
     }
