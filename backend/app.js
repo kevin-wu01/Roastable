@@ -25,9 +25,11 @@ app.use(bodyParser.json());
 
 const postsRoute = require('./routes/Post');
 const usersRoute = require('./routes/Users');
+const conversationRoute = require('./routes/Conversation');
 
 app.use('/posts', postsRoute);
 app.use('/users', usersRoute);
+app.use('/conversation', conversationRoute);
 
 //routes
 app.get('/', (req, res) => {
@@ -43,7 +45,6 @@ io.use((socket, next) => {
     // console.log(socket.handshake.auth.token);
     auth.authenticateSocketToken(socket.handshake.auth.token, next)
     .then((authRes) => {
-        console.log(authRes);
         if (authRes.err) {
             socket.emit('error', authRes.err);
         }

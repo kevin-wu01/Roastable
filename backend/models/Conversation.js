@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ConversationSchema = mongoose.Schema({
-    id: {
+    conversationId: {
         type: Number,
         required: true
     },
