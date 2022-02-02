@@ -37,6 +37,7 @@ router.get('/get', auth.authenticateToken, (req, res) => {
             })
 
             messages.push({
+                conversationId: convoArray[idx].conversationId,
                 recipiants,
                 messages: convoMsgs
             })

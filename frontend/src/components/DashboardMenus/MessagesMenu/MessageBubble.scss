@@ -1,0 +1,26 @@
+.MessageBubble {
+    overflow: auto;
+    margin: 4px 0;
+
+    &-text {
+        display: inline-block;
+        max-width: 46%;
+        font-size: 12px;
+        border-radius: 15px;
+        padding: 8px 10px;
+    }
+
+    &-sent {
+        float: right;
+        text-align: right;
+        color: white;
+        background-color: #00B2FF;
+    
+    }
+
+    &-receive {
+        text-align: left;
+        color: black;
+        background-color: #C4C4C4;
+    }
+}

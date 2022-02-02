@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MessagesModal from "./MessagesModal";
+import MessageBubble from './MessageBubble';
+import { getUserConversations } from '../../RoastableService/RoastableService';
 
 import MessagesArrow from '../../../Images/MessagesArrow/MessagesArrow.png';
 import DarkMessagesArrow from '../../../Images/MessagesArrow/DarkMessagesArrow.png';
@@ -8,9 +10,39 @@ import { InputLarge } from '../../styled/common';
 import { H3 } from '../../styled/text';
 import "./MessagesMenu.scss";
 
-export default function MessagesMenu({ socket }) {
+export default function MessagesMenu({ socket, userData }) {
     const [showMessagesModal, setShowMessagesModal] = useState(false);
     const [userMessage, setUserMessage] = useState("");
+    const [msgData, setMsgData] = useState([]);
+    const [currConversationIdx, setCurrConversationIdx] = useState(-1);
+    const [selectedConvo, setSelectedConvo] = useState({});
+
+    useEffect(() => {
+        getUserConversations(localStorage.getItem('token'))
+        .then((convos) => {
+            setMsgData(convos);
+
+            convos.forEach((c) => {
+                socket.emit('join', c.conversationId);
+            })
+
+            socket.on('message', (newMsg, self) => {
+                newMsg.self = self;
+                console.log(newMsg, "newMsg");
+                let newMsgIdx = convos.findIndex((c) => c.conversationId === newMsg.conversationId);
+                convos[newMsgIdx].messages.push(newMsg);
+
+                const newConvos = convos.slice();
+                setMsgData(newConvos);
+            })
+        })
+    }, []);
+
+    useEffect(() => {
+        if (currConversationIdx !== -1) {
+            setSelectedConvo(msgData[currConversationIdx]);
+        }
+    }, [currConversationIdx]);
 
     const onHoverArrow = () => {
         document.getElementsByClassName("MessagesMenu__arrow")[0].src = DarkMessagesArrow;
@@ -24,53 +56,33 @@ export default function MessagesMenu({ socket }) {
         if (e.key === 'Enter') {
             const chatBox = document.querySelector(".MessagesMenu-TextBox");
 
-            socket.emit('chatMessage', userMessage);
+            socket.emit('chatMessage', { 
+                conversationId: selectedConvo.conversationId,
+                sender: userData.username,
+                content: userMessage
+            });
             document.getElementsByClassName("MessagesMenu-input__msg")[0].value = ''; 
             chatBox.scrollTop = chatBox.scrollHeight;
+            setCurrConversationIdx(currConversationIdx);
         }
     }
 
     return(
         <div className="MessagesMenu">
-            {showMessagesModal ? <MessagesModal setShowMessagesModal={setShowMessagesModal}/> :
+            {showMessagesModal ? <MessagesModal setShowMessagesModal={setShowMessagesModal} msgData={msgData} setCurrConversationIdx={setCurrConversationIdx}/> :
             <div className="MessagesMenu__box" onClick={() => setShowMessagesModal(true)} onMouseOver={() => onHoverArrow()} onMouseOut={() => offHoverArrow()}>
                 <img className="MessagesMenu__arrow" src={MessagesArrow}/>
             </div>
             }
             <div className="MessagesMenu-desc">
-                <H3 className="MessagesMenu-desc__FirstName">Zoe</H3> <H3 className="MessagesMenu-desc__LastName">Inoyush</H3>
+                <H3 className="MessagesMenu-desc__FirstName">{Object.keys(selectedConvo).length !== 0 ? selectedConvo.recipiants[0] : ''}</H3> <H3 className="MessagesMenu-desc__LastName"></H3>
             </div>
             <div className="MessagesMenu-TextBox">
-            <div className="sentext-box">
-                <div className="sentext">
-                    Lorem ipsum dolor sit amet potato cheese food literally eating all of that like holy smokes I,
-                </div>
-            </div>
-            <div className="receive-text-box">
-                <div className="receive-text">
-                    Lorem ipsum dolor sit amet potato cheese food literally eating all of that like holy smokes I,
-                </div>
-            </div>
-            <div className="sentext-box">
-                <div className="sentext">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non lorem mauris. Donec sit amet ipsum eu leo molestie vestibulum porta quis lacus. Nullam commodo nulla sed sapien rutrum, at pellentesque nulla finibus. Maecenas id risus sed urna scelerisque pellentesque. Mauris pretium mi sit amet dui iaculis elementum. Pellentesque ultrices, tellus vitae pretium egestas, orci arcu convallis lorem, sed aliquet magna leo at metus. Aenean scelerisque placerat libero, non tempor odio gravida eget. Vestibulum tempor blandit nisi. Sed ante tellus, eleifend sit amet leo et, ultrices lacinia felis.
-                </div>
-            </div>
-            <div className="sentext-box">
-                <div className="sentext">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non lorem mauris. Donec sit amet ipsum eu leo molestie vestibulum porta quis lacus. Nullam commodo nulla sed sapien rutrum, at pellentesque nulla finibus. Maecenas id risus sed urna scelerisque pellentesque. Mauris pretium mi sit amet dui iaculis elementum. Pellentesque ultrices, tellus vitae pretium egestas, orci arcu convallis lorem, sed aliquet magna leo at metus. Aenean scelerisque placerat libero, non tempor odio gravida eget. Vestibulum tempor blandit nisi. Sed ante tellus, eleifend sit amet leo et, ultrices lacinia felis.
-                </div>
-            </div>
-            <div className="receive-text-box">
-                <div className="receive-text">
-                Integer placerat, ante ac luctus aliquet, sapien nisi venenatis nibh, et accumsan sapien leo nec magna. Sed rutrum nec nunc vel sollicitudin. Mauris fermentum purus eget congue pellentesque. Etiam scelerisque purus nec lectus aliquam sagittis. Curabitur auctor quis lorem quis ullamcorper. Suspendisse congue malesuada orci, nec viverra ante. Maecenas pellentesque quam quis lorem tincidunt dictum. Aenean in est sed nisl hendrerit facilisis. Phasellus elementum at ante eu blandit. 
-                </div>
-            </div>
-            <div className="receive-text-box">
-                <div className="receive-text">
-                Integer placerat, ante ac luctus aliquet, sapien nisi venenatis nibh, et accumsan sapien leo nec magna. Sed rutrum nec nunc vel sollicitudin. Mauris fermentum purus eget congue pellentesque. Etiam scelerisque purus nec lectus aliquam sagittis. Curabitur auctor quis lorem quis ullamcorper. Suspendisse congue malesuada orci, nec viverra ante. Maecenas pellentesque quam quis lorem tincidunt dictum. Aenean in est sed nisl hendrerit facilisis. Phasellus elementum at ante eu blandit. 
-                </div>
-            </div>
+            {
+                Object.keys(selectedConvo).length !== 0 ? selectedConvo.messages.map((msg, idx) => {
+                    return <MessageBubble content={msg.content} self={msg.self} idx={idx} key={"bubble-" + idx.toString()}/>
+                }) : '' 
+            }
             </div>
             <div className="MessagesMenu-input">
                 <InputLarge className="MessagesMenu-input__msg" type="text" placeholder="Aa" onChange={e => setUserMessage(e.target.value)} onKeyDown={(e) => handleEnter(e)}/>

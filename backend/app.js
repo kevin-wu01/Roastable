@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 const postsRoute = require('./routes/Post');
 const usersRoute = require('./routes/Users');
 const conversationRoute = require('./routes/Conversation');
+const Message = require('./models/Message');
 
 app.use('/posts', postsRoute);
 app.use('/users', usersRoute);
@@ -58,7 +59,7 @@ io.use((socket, next) => {
 io.on('connection', function(socket) {
     console.log('A user connected');
 
-    socket.emit('message', 'Welcome to Roastable');
+    // socket.emit('message', 'Welcome to Roastable');
  
     //Whenever someone disconnects this piece of code executed
     socket.on('disconnect', function () {
@@ -66,7 +67,30 @@ io.on('connection', function(socket) {
     });
 
     socket.on('chatMessage', (msg) => {
-        socket.emit('message', msg);
+        const currDate = new Date();
+        const dbMsg = new Message({
+            sender: msg.sender,
+            content: msg.content,
+            time_created: currDate,
+            conversationId: msg.conversationId
+        })
+
+        dbMsg.save()
+        .then((data) => {
+            const {_id, __v, sender, ...savedMsg} = data.toObject();
+            console.log(savedMsg, "data");
+            socket.in(msg.conversationId.toString()).emit('message', savedMsg, false);
+            socket.emit('message', savedMsg, true);
+        })
+        .catch((err) => {
+            socket.emit('error', "err");
+        })
+    })
+//
+    socket.on('join', (id) => {
+        socket.join(id.toString());
+
+        console.log("user joined room " + id.toString());
     })
  });
 

@@ -58,7 +58,7 @@ export default function Dashboard() {
             }
         });
         setSocket(newSocket);
-        console.log(newSocket);
+
         return () => newSocket.close();
     }, [setSocket]);
 
@@ -85,7 +85,7 @@ export default function Dashboard() {
                 setMenuContent(<HomeMenu/>);
                 break;
             case "messages":
-                setMenuContent(<MessagesMenu socket={socket}/>);
+                setMenuContent(<MessagesMenu socket={socket} userData={userData}/>);
                 break;
             case "people":
                 setMenuContent(<div></div>);
