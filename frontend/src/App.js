@@ -5,6 +5,7 @@ import useToken from './components/RoastableService/useToken';
 
 import Landing from './components/landing/Landing';
 import Dashboard from './components/dashboard/Dashboard';
+import CoffeeShop from './components/CoffeeShop/CoffeeShop';
 
 import './App.css';
 import "@fontsource/rowdies";
@@ -23,10 +24,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard/>}/>
+          <Route path="/coffeeshop" element={<CoffeeShop/>}/>
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
+//
 export default App;

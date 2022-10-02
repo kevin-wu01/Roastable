@@ -26,11 +26,13 @@ app.use(bodyParser.json());
 const postsRoute = require('./routes/Post');
 const usersRoute = require('./routes/Users');
 const conversationRoute = require('./routes/Conversation');
+const coffeeRoomRoute = require('./routes/CoffeeRoom');
 const Message = require('./models/Message');
 
 app.use('/posts', postsRoute);
 app.use('/users', usersRoute);
 app.use('/conversation', conversationRoute);
+app.use('/room', coffeeRoomRoute), 
 
 //routes
 app.get('/', (req, res) => {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { getUserData } from '../RoastableService/RoastableService';
 import io from 'socket.io-client';
 
@@ -21,6 +22,7 @@ export default function Dashboard() {
     const [dropdown, setDropdown] = useState(false);
     const [userData, setUserData] = useState();
     const [socket, setSocket] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getUserData(localStorage.getItem('token'))
@@ -114,6 +116,10 @@ export default function Dashboard() {
         selectedMenuItem.classList.add("Dashboard-menu-sidebar__button--selected");
     }
 
+    const redirectCoffee = () => {
+        navigate("/coffeeshop");
+    }
+
     return(
         <div className="Dashboard">
             <img className="Dashboard-circle1" src={circleStripesLarge} alt="circle with stripes"/>
@@ -140,6 +146,9 @@ export default function Dashboard() {
                         <button className="Dashboard-menu-sidebar__button" onClick={() => setSelectedMenu("messages")}><H2 className="Dashboard-menu-sidebar__title">Messages</H2></button>
                         <button className="Dashboard-menu-sidebar__button" onClick={() => setSelectedMenu("people")}><H2 className="Dashboard-menu-sidebar__title">People</H2></button>
                         <button className="Dashboard-menu-sidebar__button" onClick={() => setSelectedMenu("settings")}><H2 className="Dashboard-menu-sidebar__title">Settings</H2></button>
+                    </div>
+                    <div className="Dashboard-menu-sidebar__coffee">
+                        <button className="Dashboard-menu-sidebar__coffeeButton" onClick={() => redirectCoffee()}><H2 className="Dashboard-menu-sidebar__coffeeTitle">Coffee Shop</H2></button>
                     </div>
                 </div>
                 <div className="Dashboard-menu-display">

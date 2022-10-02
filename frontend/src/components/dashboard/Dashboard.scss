@@ -106,6 +106,25 @@
                 margin: 12px 0;
             }
 
+            &__coffee {
+
+            }
+
+            &__coffeeButton {
+                position: absolute;
+                bottom: 0;
+                border: none;
+                border-bottom-left-radius: 20px;
+                width: 300px;
+                padding: 15px;
+                background-image: linear-gradient(to bottom right, #f2a65a, #772f1a);
+                cursor: pointer;
+            }
+
+            &__coffeeButton &__coffeeTitle {
+                color: white;
+            }
+
             &-display {
                 width: 100%;
             }
