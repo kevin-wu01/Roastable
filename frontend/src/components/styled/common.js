@@ -62,3 +62,16 @@ export const InputLarge = styled.input`
 export const label = styled.label`
 
 `
+
+export const DashboardTile = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #630000;
+    opacity: 0.75;
+    width: 40%;
+    border-radius: 20px;
+    height: 120px;
+    max-height: 20%;
+`

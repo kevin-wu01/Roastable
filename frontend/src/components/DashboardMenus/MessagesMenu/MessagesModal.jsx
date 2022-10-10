@@ -23,7 +23,7 @@ export default function MessagesModal({ setShowMessagesModal, msgData, setCurrCo
     const offHoverArrow = () => {
         document.getElementsByClassName("MessagesModal__arrow")[0].src = MessagesArrow;
     }
-    console.log(msgData[0].recipiants, "msgData");
+    console.log(msgData[0]?.recipiants, "msgData");
     return(
         <div className="MessagesModal">
             {msgData ? msgData.map((msg,idx) => {

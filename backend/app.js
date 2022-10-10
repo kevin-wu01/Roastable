@@ -41,7 +41,26 @@ app.get('/', (req, res) => {
 
 console.log(process.env.DB_CONNECTION);
 mongoose.connect(process.env.DB_CONNECTION, () => {
-    console.log("connected to db");
+    let readyState;
+
+    switch (mongoose.connection.readyState) {
+        case 0:
+            readyState = 'disconnected';
+            break;
+        case 1:
+            readyState = 'connected';
+            break;
+        case 2:
+            readyState = 'connecting';
+            break;
+        case 3:
+            readyState = 'disconnecting';
+            break;
+        default:
+            readyState = 'error';
+    };
+
+    console.log(`connected to mongodb with state: ${readyState}`);
 })
 
 io.use((socket, next) => {

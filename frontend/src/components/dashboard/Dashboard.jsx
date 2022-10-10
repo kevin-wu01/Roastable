@@ -95,6 +95,8 @@ export default function Dashboard() {
             case "settings":
                 setMenuContent(<div></div>);;
                 break;
+            default:
+                setMenuContent('');
         }
     }
 

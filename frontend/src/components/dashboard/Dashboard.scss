@@ -35,7 +35,7 @@
 
     &-menu {
         width: 85%;
-        height: 85%;
+        height: 95%;
         display: flex;
         // opacity: 50%;
         background: white;
@@ -61,7 +61,6 @@
                 flex-wrap: nowrap;
                 flex-direction: column;
                 align-items: center;
-                margin-bottom: 15px;
             }
     
             &__items {
@@ -74,7 +73,7 @@
                 position: relative;
                 overflow: hidden;
                 border-radius: 50%;
-                margin-top: 20px;
+                margin-top: 5%;
             }
 
             &__profile &__name {             
@@ -87,7 +86,7 @@
                 border: 0;
                 width: 300px;
                 background-color: white;
-                padding: 20px;
+                padding: 5%;
                 cursor: pointer;
 
                 &--selected {
