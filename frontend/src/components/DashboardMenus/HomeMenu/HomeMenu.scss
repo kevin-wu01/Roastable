@@ -1,29 +1,29 @@
 .HomeMenu {
-    margin-left: 25px;
+  margin-left: 25px;
 
-    &-wrapper {
-        display: inline-block;
-    }
+  &-wrapper {
+    display: inline-block;
+  }
 
-    &-stats {
-        display: flex;
-        justify-content: space-evenly;
-        padding-top: 20px;
-    }
+  &-stats {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 20px;
+  }
 
-    &-label {
-        margin: 0 0 8px 32px
-    }
-    
-    &-value {
-        margin: 0 0 0 32px;
-    }
+  &-label {
+    margin: 0 0 8px 32px;
+  }
+
+  &-value {
+    margin: 0 0 0 32px;
+  }
 }
 
 .HomeMenu .HomeMenu-title {
-    margin: 15px 0 0 0;
+  margin: 15px 0 0 0;
 }
 
 .HomeMenu .HomeMenu-value {
-    color: white;
+  color: white;
 }
