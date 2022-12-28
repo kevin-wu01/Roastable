@@ -1,17 +1,17 @@
 .MessagesModal {
-    width: 100px;
-    height: 100%;
-    background-color: #ECECEC;
-    width: 400px;
-    max-width: 75%;
-    float: left;
-    position: absolute;
-    // overflow-y: auto;
+  width: 100px;
+  height: 100%;
+  background-color: #ececec;
+  width: 400px;
+  max-width: 75%;
+  float: left;
+  position: absolute;
+  // overflow-y: auto;
 
-    &__arrow {
-        cursor: pointer;
-        position: fixed;
-        top: 43%;
-        margin-left: 408px;
-    }
+  &__arrow {
+    cursor: pointer;
+    position: fixed;
+    top: 43%;
+    margin-left: 408px;
+  }
 }

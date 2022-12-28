@@ -1,150 +1,166 @@
 .Dashboard {
-    background-color: #EEEBDD;
-    height: 100vh;
+  background-color: #eeebdd;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-circle1 {
+    position: absolute;
+    top: 2%;
+    right: 5%;
+    max-width: 25%;
+  }
+
+  &-circle2 {
+    position: absolute;
+    left: 2%;
+    bottom: 15%;
+    max-width: 15%;
+  }
+
+  &-circle3 {
+    position: absolute;
+    top: 20%;
+    left: 28%;
+    max-width: 15%;
+  }
+
+  &-circle4 {
+    position: absolute;
+    bottom: 30%;
+    right: 30%;
+    max-width: 15%;
+  }
+
+  &-menu {
+    width: 85%;
+    height: 95%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    // opacity: 50%;
+    background: white;
+    background: linear-gradient(
+      to right bottom,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.3)
+    );
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    z-index: 2;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
 
-    &-circle1 {
-        position: absolute;
-        top: 2%;
-        right: 5%;
-        max-width: 25%;
-    }
+    &-sidebar {
+      height: 100%;
+      width: 300px;
+      background-color: white;
+      border-radius: 20px;
+      z-index: 1;
 
-    &-circle2 {
-        position: absolute;
-        left: 2%;
-        bottom: 15%;
-        max-width: 15%;
-    }
-
-    &-circle3 {
-        position: absolute;
-        top: 20%;
-        left: 28%;
-        max-width: 15%;
-    }
-
-    &-circle4 {
-        position: absolute;
-        bottom: 30%;
-        right: 30%;
-        max-width: 15%;
-    }
-
-    &-menu {
-        width: 85%;
-        height: 85%;
+      &__profile {
         display: flex;
-        // opacity: 50%;
-        background: white;
-        background: linear-gradient(
-            to right bottom, 
-            rgba(255, 255, 255, 0.7), 
-            rgba(255, 255, 255, 0.3)
-        );
-        border-radius: 20px;
-        backdrop-filter: blur(12px);
-        z-index: 2;
-        filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        &-sidebar {
-            height: 100%;
-            width: 300px;
-            background-color: white;
-            border-radius: 20px;
-            z-index: 1;
-    
-            &__profile {
-                display: flex;
-                flex-wrap: nowrap;
-                flex-direction: column;
-                align-items: center;
-                margin-bottom: 15px;
-            }
-    
-            &__items {
-                
-            }
+      &__items {
+      }
 
-            &__picture {             
-                width: 80px;
-                height: 80px;
-                position: relative;
-                overflow: hidden;
-                border-radius: 50%;
-                margin-top: 20px;
-            }
+      &__picture {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-top: 5%;
+      }
 
-            &__profile &__name {             
-                margin-top: 10px;
-                margin: 10px 0 0 18px;
-                display: inline-block;
-            }
+      &__profile &__name {
+        margin-top: 10px;
+        margin: 10px 0 0 18px;
+        display: inline-block;
+      }
 
-            &__button {
-                border: 0;
-                width: 300px;
-                background-color: white;
-                padding: 20px;
-                cursor: pointer;
+      &__button {
+        border: 0;
+        width: 300px;
+        background-color: white;
+        padding: 5%;
+        cursor: pointer;
 
-                &--selected {
-                    background-color: #EEEBDD;
-                    pointer-events: none;
-                }
-            }
-
-            &__button:hover {
-                //background-color: #ebeedd;
-                background-color: #f1f1f1;
-            }
-
-            &__button &__title {
-                color: #BF886B;
-                margin: 12px 0;
-            }
-
-            &-display {
-                width: 100%;
-            }
+        &--selected {
+          background-color: #eeebdd;
+          pointer-events: none;
         }
+      }
 
-        &-display {
-            width: 100%;
-        }
+      &__button:hover {
+        //background-color: #ebeedd;
+        background-color: #f1f1f1;
+      }
 
-        &-dropdown {
-            display: inline-block;
+      &__button &__title {
+        color: #bf886b;
+        margin: 12px 0;
+      }
 
-            &__arrow {
-                // width: 0; 
-                // height: 0; 
-                margin-left: 5px;
-                cursor: pointer;
-            }
+      &__coffee {
+      }
 
-            &__content {
-                position: absolute;
-                z-index: 1;
-                margin: 5px 0 0 -75px;
-                padding: 5px 0;
-                width: 100px;
-                background-color: white;
-                border-radius: 8px;
-                filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
-            }
+      &__coffeeButton {
+        position: absolute;
+        bottom: 0;
+        border: none;
+        border-bottom-left-radius: 20px;
+        width: 300px;
+        padding: 15px;
+        background-image: linear-gradient(to bottom right, #f2a65a, #772f1a);
+        cursor: pointer;
+      }
 
-            &__button {
-                background-color: white;
-                border: none;
-                width: 100px;
-                height: 40px;
-                // padding: 10px 15px;
-                cursor: pointer;
-                // filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
-            }
-        }
+      &__coffeeButton &__coffeeTitle {
+        color: white;
+      }
+
+      &-display {
+        width: 100%;
+      }
     }
+
+    &-display {
+      width: 100%;
+    }
+
+    &-dropdown {
+      display: inline-block;
+
+      &__arrow {
+        // width: 0;
+        // height: 0;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+
+      &__content {
+        position: absolute;
+        z-index: 1;
+        margin: 5px 0 0 -75px;
+        padding: 5px 0;
+        width: 100px;
+        background-color: white;
+        border-radius: 8px;
+        filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+      }
+
+      &__button {
+        background-color: white;
+        border: none;
+        width: 100px;
+        height: 40px;
+        // padding: 10px 15px;
+        cursor: pointer;
+        // filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+      }
+    }
+  }
 }

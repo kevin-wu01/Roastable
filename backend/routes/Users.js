@@ -87,7 +87,8 @@ router.patch('/:username', (req, res) => {
 })
 
 // login user
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
+    console.log("/login endpoint hit");
     User.find({username: req.body.username, password: req.body.password})
     .then((user) => {
         if (user.length === 0) {
