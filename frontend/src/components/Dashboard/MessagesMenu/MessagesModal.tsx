@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import MessagesTile from './MessagesTile';
 import PropTypes from 'prop-types';
 
@@ -6,8 +6,17 @@ import MessagesArrow from '../../../Images/MessagesArrow/MessagesArrowMirror.png
 import DarkMessagesArrow from '../../../Images/MessagesArrow/DarkMessagesArrowMirror.png';
 
 import './MessagesModal.scss';
+import { Conversation } from '../../../types/DashboardTypes';
 
-export default function MessagesModal({ setShowMessagesModal, msgData, setCurrConversationIdx }) {
+export default function MessagesModal({
+  setShowMessagesModal,
+  msgData,
+  setCurrConversationIdx
+}: {
+  setShowMessagesModal: () => void;
+  msgData: Conversation[];
+  setCurrConversationIdx: () => void;
+}): ReactElement {
   // let mockData = [
   //   {
   //     FirstName: 'Kevin',
@@ -29,16 +38,20 @@ export default function MessagesModal({ setShowMessagesModal, msgData, setCurrCo
   //   }
   // ];
 
-  useEffect(() => {}, []);
-
   const onHoverArrow = () => {
-    document.getElementsByClassName('MessagesModal__arrow')[0].src = DarkMessagesArrow;
+    // const element: HTMLImageElement = document.getElementsByClassName('MessagesModal__arrow')[0];
+    // ((HTMLImageElement) document.getElementsByClassName('MessagesModal__arrow')[0]).src = DarkMessagesArrow;
+    document
+      .getElementsByClassName('MessagesModal__arrow')[0]
+      .setAttribute('src', DarkMessagesArrow);
   };
 
   const offHoverArrow = () => {
-    document.getElementsByClassName('MessagesModal__arrow')[0].src = MessagesArrow;
+    // document.getElementsByClassName('MessagesModal__arrow')[0].src = MessagesArrow;
+    document.getElementsByClassName('MessagesModal__arrow')[0].setAttribute('src', MessagesArrow);
   };
-  console.log(msgData[0]?.recipiants, 'msgData');
+  console.log(msgData, 'msgData');
+
   return (
     <div className="MessagesModal">
       {msgData
@@ -47,10 +60,8 @@ export default function MessagesModal({ setShowMessagesModal, msgData, setCurrCo
               <MessagesTile
                 key={'tile-' + idx.toString()}
                 idx={idx}
-                firstName={msg.recipiants[0]}
-                lastName={''}
+                user={{ firstName: msg.recipiants[0], lastName: '' }}
                 lastMessage={msg.messages[msg.messages.length - 1].content}
-                sentLast={msg.sentLast}
                 setCurrConversationIdx={setCurrConversationIdx}
                 setShowMessagesModal={setShowMessagesModal}
               />
@@ -70,6 +81,6 @@ export default function MessagesModal({ setShowMessagesModal, msgData, setCurrCo
 
 MessagesModal.propTypes = {
   setShowMessagesModal: PropTypes.func,
-  msgData: PropTypes.object,
+  msgData: PropTypes.arrayOf(PropTypes.object),
   setCurrConversationIdx: PropTypes.func
 };

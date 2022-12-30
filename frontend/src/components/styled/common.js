@@ -26,12 +26,16 @@ export const Button = styled.button`
 export const Input = styled.input`
   display: block;
   border-radius: 10px;
-  border: 2px solid #d8b6a4;
+  border: 1.5px solid #c8c8c8;
   height: 50px;
   width: 410px;
   font-size: 15px;
   padding: 0 20px;
   margin: 20px 0;
+
+  &:focus {
+    outline-color: #d8b6a4;
+  }
 
   @media (max-width: ${device.mobileL}) {
     border-radius: 8px;
@@ -45,11 +49,15 @@ export const Input = styled.input`
 export const InputLarge = styled.input`
   display: block;
   border-radius: 10px;
-  border: 2px solid #d8b6a4;
+  border: 1.5px solid #c8c8c8;
   height: 60px;
   width: 435px;
   font-size: 15px;
   padding: 0 20px;
+
+  &:focus {
+    outline-color: #d8b6a4;
+  }
 
   @media (max-width: ${device.mobileL}) {
     border-radius: 8px;

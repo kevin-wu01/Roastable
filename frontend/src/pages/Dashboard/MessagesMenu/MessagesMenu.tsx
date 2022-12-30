@@ -1,40 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import MessagesModal from './MessagesModal';
-import MessageBubble from './MessageBubble';
+import React, { useState, useEffect, ReactElement } from 'react';
+import MessagesModal from '../../../components/Dashboard/MessagesMenu/MessagesModal';
+import MessageBubble from '../../../components/Dashboard/MessagesMenu/MessageBubble';
 import { getUserConversations } from '../../../services/RoastableService/RoastableService';
 
 import MessagesArrow from '../../../Images/MessagesArrow/MessagesArrow.png';
 import DarkMessagesArrow from '../../../Images/MessagesArrow/DarkMessagesArrow.png';
 
-import { InputLarge } from '../../styled/common';
-import { H3 } from '../../styled/text';
+import { InputLarge } from '../../../components/styled/common';
+import { H3 } from '../../../components/styled/text';
 import './MessagesMenu.scss';
 import PropTypes from 'prop-types';
+import { Conversation, User } from '../../../types/DashboardTypes';
+import { Socket } from 'socket.io-client';
+import { sendConversationMessage, updateConversationMessages } from '../../../utils/MessageUtils';
 
-export default function MessagesMenu({ socket, userData }) {
+export default function MessagesMenu({
+  socket,
+  userData
+}: {
+  socket: Socket;
+  userData: User;
+}): ReactElement {
   const [showMessagesModal, setShowMessagesModal] = useState(false);
   const [userMessage, setUserMessage] = useState('');
-  const [msgData, setMsgData] = useState([]);
+  const [msgData, setMsgData] = useState<Conversation[]>([]);
   const [currConversationIdx, setCurrConversationIdx] = useState(-1);
-  const [selectedConvo, setSelectedConvo] = useState({});
+  const [selectedConvo, setSelectedConvo] = useState<Conversation | null>();
 
   useEffect(() => {
-    getUserConversations(localStorage.getItem('token')).then((convos) => {
+    getUserConversations(localStorage.getItem('token')).then((convos: Conversation[]) => {
+      const chatBox: Element | null = document.querySelector('.MessagesMenu-TextBox');
+
       setMsgData(convos);
 
       convos.forEach((c) => {
         socket.emit('join', c.conversationId);
       });
 
-      socket.on('message', (newMsg, self) => {
-        newMsg.self = self;
-        console.log(newMsg, 'newMsg');
-        let newMsgIdx = convos.findIndex((c) => c.conversationId === newMsg.conversationId);
-        convos[newMsgIdx].messages.push(newMsg);
-
-        const newConvos = convos.slice();
-        setMsgData(newConvos);
-      });
+      updateConversationMessages(socket, chatBox, convos, setMsgData);
     });
   }, []);
 
@@ -45,25 +48,24 @@ export default function MessagesMenu({ socket, userData }) {
   }, [currConversationIdx]);
 
   const onHoverArrow = () => {
-    document.getElementsByClassName('MessagesMenu__arrow')[0].src = DarkMessagesArrow;
+    document
+      .getElementsByClassName('MessagesMenu__arrow')[0]
+      .setAttribute('src', DarkMessagesArrow);
   };
 
   const offHoverArrow = () => {
-    document.getElementsByClassName('MessagesMenu__arrow')[0].src = MessagesArrow;
+    document.getElementsByClassName('MessagesMenu__arrow')[0].setAttribute('src', MessagesArrow);
   };
 
-  const handleEnter = (e) => {
-    if (e.key === 'Enter') {
-      const chatBox = document.querySelector('.MessagesMenu-TextBox');
+  const handleEnter = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && userMessage && selectedConvo) {
+      sendConversationMessage(socket, selectedConvo.conversationId, userData.username, userMessage);
 
-      socket.emit('chatMessage', {
-        conversationId: selectedConvo.conversationId,
-        sender: userData.username,
-        content: userMessage
-      });
-      document.getElementsByClassName('MessagesMenu-input__msg')[0].value = '';
-      chatBox.scrollTop = chatBox.scrollHeight;
+      (document.getElementsByClassName('MessagesMenu-input__msg')[0] as HTMLInputElement).value =
+        '';
+
       setCurrConversationIdx(currConversationIdx);
+      setUserMessage('');
     }
   };
 
@@ -86,17 +88,19 @@ export default function MessagesMenu({ socket, userData }) {
       )}
       <div className="MessagesMenu-desc">
         <H3 className="MessagesMenu-desc__FirstName">
-          {Object.keys(selectedConvo).length !== 0 ? selectedConvo.recipiants[0] : ''}
+          {selectedConvo && Object.keys(selectedConvo).length !== 0
+            ? selectedConvo.recipiants[0]
+            : ''}
         </H3>{' '}
         <H3 className="MessagesMenu-desc__LastName"></H3>
       </div>
       <div className="MessagesMenu-TextBox">
-        {Object.keys(selectedConvo).length !== 0
+        {selectedConvo && Object.keys(selectedConvo).length !== 0
           ? selectedConvo.messages.map((msg, idx) => {
               return (
                 <MessageBubble
                   content={msg.content}
-                  self={msg.self}
+                  isSelf={msg.self}
                   idx={idx}
                   key={'bubble-' + idx.toString()}
                 />
@@ -109,8 +113,8 @@ export default function MessagesMenu({ socket, userData }) {
           className="MessagesMenu-input__msg"
           type="text"
           placeholder="Aa"
-          onChange={(e) => setUserMessage(e.target.value)}
-          onKeyDown={(e) => handleEnter(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserMessage(e.target.value)}
+          onKeyDown={(e: KeyboardEvent) => handleEnter(e)}
         />
       </div>
     </div>

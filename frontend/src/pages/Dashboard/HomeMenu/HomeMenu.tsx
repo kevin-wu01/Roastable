@@ -1,9 +1,10 @@
-import { H1, H2 } from '../../styled/text';
-import { DashboardTile } from '../../styled/common';
+import { H1, H2 } from '../../../components/styled/text';
+import { DashboardTile } from '../../../components/styled/common';
 
 import './HomeMenu.scss';
+import { ReactElement } from 'react';
 
-export default function HomeMenu() {
+export default function HomeMenu(): ReactElement {
   return (
     <div className="HomeMenu">
       <div className="HomeMenu-wrapper">
