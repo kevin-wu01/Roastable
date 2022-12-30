@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
-import SignupModal from '../SignupModal/SignupModal';
+import SignupModal from '../../components/SignupModal/SignupModal';
 
 import fireBox from '../../Images/FireTextBox11.png';
 import fireBox2 from '../../Images/FireTextBox22.png';
@@ -10,14 +10,15 @@ import circleStripes from '../../Images/CircleStripes.png';
 
 import { loginUser } from '../../services/RoastableService/RoastableService';
 
-import { H1, H2, H4 } from '../styled/text';
-import { InputLarge } from '../styled/common';
+import { H1, H2, H4 } from '../../components/styled/text';
+import { InputLarge } from '../../components/styled/common';
 import './Landing.scss';
 import './LandingMobile.scss';
+import { Token } from '../../types/ApiTypes';
 
-export default function Landing({ setToken }) {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+export default function Landing({ setToken }: { setToken: (token: Token) => void }): ReactElement {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function Landing({ setToken }) {
     }
   });
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     resetLoginErrors();
@@ -36,7 +37,8 @@ export default function Landing({ setToken }) {
 
     if (valid) {
       loginUser({ username, password })
-        .then((token) => {
+        .then((token: Token) => {
+          console.log(token, 'token');
           if (token.data.token) {
             setToken(token);
             return <Navigate to="/home" />;
@@ -44,7 +46,7 @@ export default function Landing({ setToken }) {
             displayLoginError(token.data.message);
           }
         })
-        .catch((err) => {
+        .catch((err: string) => {
           console.log(err);
         });
     }
@@ -54,7 +56,7 @@ export default function Landing({ setToken }) {
     return true;
   };
 
-  const displayLoginError = (err) => {
+  const displayLoginError = (err: string) => {
     const errorField = document.getElementsByClassName('landing-login-error')[0];
     const loginFields = document.getElementsByTagName('input');
 
@@ -90,13 +92,13 @@ export default function Landing({ setToken }) {
               className="landing-login-email"
               type="text"
               placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
             />
             <InputLarge
               className="landing-login-password"
               type="password"
               placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             />
             <label className="landing-login-error"></label>
           </form>

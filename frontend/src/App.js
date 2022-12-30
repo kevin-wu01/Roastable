@@ -1,13 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import useToken from './services/RoastableService/useToken';
+import useToken from './hooks/useToken';
 
-import Landing from './components/landing/Landing';
-import Dashboard from './components/dashboard/Dashboard';
-import CoffeeShopMenu from './components/CoffeeShop/CoffeeShopMenu';
+import Landing from './pages/Landing/Landing';
+import Dashboard from './pages/Dashboard/Dashboard/Dashboard';
+import CoffeeShopMenu from './pages/CoffeeShop/CoffeeShopMenu/CoffeeShopMenu';
 
-import './App.css';
 import '@fontsource/rowdies';
 import '@fontsource/harmattan';
 

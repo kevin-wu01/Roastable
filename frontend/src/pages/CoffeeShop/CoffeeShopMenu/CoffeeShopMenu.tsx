@@ -1,10 +1,11 @@
-import { H2, H4 } from '../styled/text';
+import { H2, H4 } from '../../../components/styled/text';
 import './CoffeeShopMenu.scss';
 
 import { useNavigate } from 'react-router-dom';
+import { ReactElement } from 'react';
 
-export default function CoffeeShopMenu() {
-  let navigate = useNavigate();
+export default function CoffeeShopMenu(): ReactElement {
+  const navigate = useNavigate();
 
   return (
     <div className="CoffeeShop">

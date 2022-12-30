@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { createUser } from '../../services/RoastableService/RoastableService';
 
 import './SignupModal.scss';
 import { H1 } from '../styled/text';
 import { Input, Button } from '../styled/common';
 import PropTypes from 'prop-types';
+import { Response } from '../../types/ApiTypes';
 
-export default function SignupModal({ setShowModal }) {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+export default function SignupModal({
+  setShowModal
+}: {
+  setShowModal: (state: boolean) => void;
+}): ReactElement {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [disableButton, setDisableButton] = useState(false);
 
   /*
@@ -30,7 +35,8 @@ export default function SignupModal({ setShowModal }) {
     if (errorFields.length === 0) {
       setDisableButton(true);
 
-      createUser(firstName, lastName, username, password).then((res) => {
+      createUser(firstName, lastName, username, password).then((res: Response) => {
+        console.log(res, 'response');
         const label = document.getElementsByClassName('SignupModal-label')[0];
         console.log(res);
         if (res.status === 201) {
@@ -67,7 +73,7 @@ export default function SignupModal({ setShowModal }) {
 
   const validateForm = () => {
     const fields = [firstName, lastName, username, password];
-    let errorIdx = [];
+    const errorIdx: number[] = [];
 
     fields.forEach((f, idx) => {
       if (typeof f === 'undefined') {
@@ -78,7 +84,7 @@ export default function SignupModal({ setShowModal }) {
     return errorIdx;
   };
 
-  const highlightErrorFields = (errorFields) => {
+  const highlightErrorFields = (errorFields: number[]) => {
     const fields = Array.from(document.getElementsByTagName('input')).splice(2, 6);
     const label = document.getElementsByClassName('SignupModal-label')[0];
 
@@ -102,19 +108,23 @@ export default function SignupModal({ setShowModal }) {
           <Input
             type="text"
             placeholder="First name"
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
           />
           <Input
             type="text"
             placeholder="Last name"
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
           />
-          <Input type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+          <Input
+            type="text"
+            placeholder="Username"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+          />
           <Input
             className="SignupModal-LastInput"
             type="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
           <label className="SignupModal-label"></label>
         </form>

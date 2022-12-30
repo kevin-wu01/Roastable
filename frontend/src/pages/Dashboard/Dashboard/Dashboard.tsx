@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../../services/RoastableService/RoastableService';
-import io from 'socket.io-client';
+import { getUserData } from '../../../services/RoastableService/RoastableService';
+import * as io from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 
-import HomeMenu from '../DashboardMenus/HomeMenu/HomeMenu';
-import MessagesMenu from '../DashboardMenus/MessagesMenu/MessagesMenu';
+import HomeMenu from '../HomeMenu/HomeMenu';
+import MessagesMenu from '../MessagesMenu/MessagesMenu';
 
-import circleStripesSmall from '../../Images/CircleStripesSmall.png';
-import circleStripes from '../../Images/CircleStripes.png';
-import circleStripesLarge from '../../Images/CircleStripesLarge.png';
-import picturePlaceholder from '../../Images/PicturePlaceholder.png';
-import DropdownArrow from '../../Images/DropdownArrow.png';
+import circleStripesSmall from '../../../Images/CircleStripesSmall.png';
+import circleStripes from '../../../Images/CircleStripes.png';
+import circleStripesLarge from '../../../Images/CircleStripesLarge.png';
+import picturePlaceholder from '../../../Images/PicturePlaceholder.png';
+import DropdownArrow from '../../../Images/DropdownArrow.png';
 
-import { H2, H3, H4 } from '../styled/text';
+import { H2, H3, H4 } from '../../../components/styled/text';
 import './Dashboard.scss';
+import { User } from '../../../types/DashboardTypes';
 
-export default function Dashboard() {
+export default function Dashboard(): ReactElement {
   const [selectedMenu, setSelectedMenu] = useState('home');
   const [menuContent, setMenuContent] = useState(<HomeMenu />);
   const [dropdown, setDropdown] = useState(false);
-  const [userData, setUserData] = useState();
-  const [socket, setSocket] = useState(null);
+  const [userData, setUserData] = useState<User>();
+  const [socket, setSocket] = useState<Socket>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserData(localStorage.getItem('token')).then((user) => {
+    getUserData(localStorage.getItem('token')).then((user: User) => {
       setUserData(user);
     });
   }, []);
 
   useEffect(() => {
-    let buttonIdx;
+    let buttonIdx = 0;
 
     switch (selectedMenu) {
       case 'home':
@@ -59,7 +61,9 @@ export default function Dashboard() {
     });
     setSocket(newSocket);
 
-    return () => newSocket.close();
+    return () => {
+      newSocket.close();
+    };
   }, [setSocket]);
 
   useEffect(() => {
@@ -68,7 +72,7 @@ export default function Dashboard() {
         console.log('connected to socket');
       });
 
-      socket.on('message', (message) => {
+      socket.on('message', (message: string) => {
         console.log(message);
       });
 
@@ -80,6 +84,8 @@ export default function Dashboard() {
   }, [socket]);
 
   const selectMenuContent = () => {
+    if (!userData || !socket) return;
+
     switch (selectedMenu) {
       case 'home':
         setMenuContent(<HomeMenu />);
@@ -94,7 +100,7 @@ export default function Dashboard() {
         setMenuContent(<div></div>);
         break;
       default:
-        setMenuContent('');
+        setMenuContent(<div></div>);
     }
   };
 
@@ -103,7 +109,7 @@ export default function Dashboard() {
     window.location.reload();
   };
 
-  const updateButtonStyle = (menuIdx) => {
+  const updateButtonStyle = (menuIdx: number) => {
     const menuItems = Array.from(document.getElementsByClassName('Dashboard-menu-sidebar__button'));
 
     const selectedMenuItem = menuItems[menuIdx];
